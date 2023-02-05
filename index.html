@@ -12,6 +12,21 @@
       margin-left: 0;
     }
 
+    .articles li ul {
+      gap: 10px;
+      margin-right: 15px;
+      padding-left: 0;
+      list-style: none;
+      display: inline-flex;
+    }
+
+    .articles li ul li {
+      font-size: 12px;
+      padding: 4px 8px;
+      border: solid 1px #000;
+      border-radius: 10px;
+    }
+
     .select-tags li {
       display: inline-block;
       margin-bottom: 5px;
@@ -21,6 +36,10 @@
 
     [v-cloak] {
       display: none;
+    }
+
+    :disabled {
+      opacity: 0.5;
     }
 
     .sortBtns {
@@ -62,6 +81,7 @@
     .sort {
       background: #eee;
       padding: 1px 16px 18px;
+      margin-bottom: 50px;
     }
 
     button {
@@ -77,27 +97,30 @@
 <body>
   <div id="app" v-cloak class="contaienr">
     <div class="sort">
-      <h3>絞り込む</h3>
-      <label for="disc" class="sortBtn">
+      <h3>日時でソートする</h3>
+      <label for="desc" class="sortBtn">
         <input type="radio" value="desc" v-model="sortDate" name="date" id="desc">新しい順
       </label>
       <label for="asc" class="sortBtn">
         <input type="radio" value="asc" v-model="sortDate" name="date" id="asc">古い順
       </label>
+      <h3>タグで絞り込む</h3>
       <ul class="select-tags">
         <li v-for="tag, n in tags"><label :for="`tag-${n}`"><input type="checkbox" :value="tag" v-model="selectedTags"
               name="tag" :id="`tag-${n}`">{{tag}}</label> </li>
       </ul>
       <div class="sortBtns">
-        <button @click="sort">絞り込む</button>
+        <button @click="sort">実行</button>
         <button @click="clear">クリア</button>
       </div>
     </div>
-
     <p v-if="message">{{message}}</p>
     <ul class="articles">
       <li v-for="article in articles">
-        <time :datetime="article.date">{{article.date}}</time>
+        <time :datetime="article.date">{{article.date.replace(/-/g, "/")}}</time>
+        <ul v-if="article.tags.length !== 0">
+          <li v-for="tag in article.tags">{{tag}}</li>
+        </ul>
         <a :href="article.slug">{{article.title}}</a>
       </li>
     </ul>

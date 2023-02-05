@@ -46,6 +46,7 @@ const app = createApp({
 
       maxPage.value = Math.ceil(total.value / paged)
       articles.value  = result.slice( paged *  (currentPage.value - 1), paged * currentPage.value)
+      articles.value  = result.slice( paged *  (currentPage.value - 1), paged * currentPage.value)
     }
     const getTags = async () => {
       let tagList;
