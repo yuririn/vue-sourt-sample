@@ -5,131 +5,47 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sort JSON</title>
+  <title>Document</title>
   <style>
-    .select-tags {
-      padding-left: 0;
-      margin-left: 0;
-    }
-
-    .articles li ul {
-      gap: 10px;
-      margin-right: 15px;
-      padding-left: 0;
-      list-style: none;
-      display: inline-flex;
-    }
-
-    .articles li ul li {
-      font-size: 12px;
-      padding: 4px 8px;
-      border: solid 1px #000;
-      border-radius: 10px;
-    }
-
-    .select-tags li {
-      display: inline-block;
-      margin-bottom: 5px;
-      margin-right: 15px;
+    li {
+      margin-bottom: 16px;
+      position: relative;
+      padding-left: 200px;
       list-style: none;
     }
 
-    [v-cloak] {
-      display: none;
-    }
-
-    :disabled {
-      opacity: 0.5;
-    }
-
-    .sortBtns {
-      display: flex;
-      gap: 15px;
-      justify-content: flex-end;
-    }
-
-    .contaienr {
-      max-width: 1080px;
-      margin: 10px auto;
-    }
-
-    .patination {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .articles {
-      margin-top: 50px;
-      margin-left: 0;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .articles li {
-      margin-bottom: 15px;
-    }
-
-    .articles li a {
-      color: #0063db;
-    }
-
-    .articles li time {
-      width: 120px;
-      display: inline-block;
-    }
-
-    .sort {
-      background: #eee;
-      padding: 1px 16px 18px;
-      margin-bottom: 50px;
-    }
-
-    button {
-      background: #1b1b1b;
-      border: none;
+    time {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 14px;
       font-weight: bold;
-      padding: 8px 16px;
+    }
+
+    span {
+      position: absolute;
+      left: 100px;
+      top: 0;
+      width: 80px;
       color: #fff;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
     }
   </style>
 </head>
 
 <body>
-  <div id="app" v-cloak class="contaienr">
-    <div class="sort">
-      <h3>日時でソートする</h3>
-      <label for="desc" class="sortBtn">
-        <input type="radio" value="desc" v-model="sortDate" name="date" id="desc">新しい順
-      </label>
-      <label for="asc" class="sortBtn">
-        <input type="radio" value="asc" v-model="sortDate" name="date" id="asc">古い順
-      </label>
-      <h3>タグで絞り込む</h3>
-      <ul class="select-tags">
-        <li v-for="tag, n in tags"><label :for="`tag-${n}`"><input type="checkbox" :value="tag" v-model="selectedTags"
-              name="tag" :id="`tag-${n}`">{{tag}}</label> </li>
-      </ul>
-      <div class="sortBtns">
-        <button @click="sort">実行</button>
-        <button @click="clear">クリア</button>
-      </div>
-    </div>
-    <p v-if="message">{{message}}</p>
-    <ul class="articles">
-      <li v-for="article in articles">
-        <time :datetime="article.date">{{article.date.replace(/-/g, "/")}}</time>
-        <ul v-if="article.tags.length !== 0">
-          <li v-for="tag in article.tags">{{tag}}</li>
-        </ul>
-        <a :href="article.slug">{{article.title}}</a>
+  <div id="app">
+    <ul>
+      <li v-for="post in posts">
+
+        <post-item :post="post">
       </li>
     </ul>
-    <div class="patination">
-      <button @click="pagination(`prev`)" :disabled="currentPage === 1">PREV</button>{{currentPage}}/{{maxPage}}<button
-        @click="pagination(`next`)" :disabled="currentPage == maxPage">NEXT</button>
-    </div>
   </div>
-
   <script src="./js/index.min.js" type="module" defer></script>
 </body>
 
