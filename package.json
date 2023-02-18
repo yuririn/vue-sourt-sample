@@ -1,0 +1,30 @@
+{
+  "name": "vue-practice",
+  "version": "1.0.0",
+  "description": "Sample for VUE sort Articles.",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "prod": "gulp --env production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuririn/vue-sourt-sample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuririn/vue-sourt-sample/issues"
+  },
+  "homepage": "https://github.com/yuririn/vue-sourt-sample#readme",
+  "devDependencies": {
+    "babel-loader": "^9.1.2",
+    "browser-sync": "^2.27.11",
+    "gulp": "^4.0.2",
+    "minimist": "^1.2.8",
+    "vue": "^3.2.47",
+    "vue-loader": "^17.0.1",
+    "webpack": "^5.75.0",
+    "webpack-stream": "^7.0.0"
+  }
+}

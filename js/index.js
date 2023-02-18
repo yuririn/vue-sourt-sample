@@ -3,7 +3,7 @@ import {
   createApp,
   ref,
   onMounted,
-} from "https://unpkg.com/vue@3.2.4/dist/vue.esm-browser.prod.js";
+} from "vue";
 
 const jsonUrl = 'articles.json';
 
