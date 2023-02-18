@@ -5,7 +5,7 @@
 import { computed } from "vue";
 export default {
     props:{
-        post: { type: [Array, []] }
+        post: { type: [Array, boolean] }
     },
     setup(props) {
         const setDateString = computed(() =>{
