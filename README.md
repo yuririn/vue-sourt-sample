@@ -18,3 +18,4 @@ production mode.
 npm run prod
 ```
 
+<curriculum-header :curriculum="getCurriculum(9)" @setYourInfo="showYourInfo" :lang="`ja`" :subject="subject" @setYourInfo2="openLevelsetYourInfo"></curriculum-header>
