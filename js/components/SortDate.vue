@@ -5,9 +5,9 @@
 import { computed, ref } from "vue";
 export default {
     props:{
-        sort: { type: [String, null] },
-        value: { type: [String, null] },
-        label: { type: String }
+        sort:  String,
+        value: String,
+        label: String
     },
     emits:["update:sort"],
     setup(props, { emit }) {

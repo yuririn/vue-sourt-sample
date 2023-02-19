@@ -11,7 +11,7 @@
         <div class="sortBtns">
             <button @click="sort">実行</button>
             <button @click="clear">クリア</button>
-      </div>
+        </div>
     </div>
 </template>
 <script>
@@ -19,13 +19,11 @@ import TagItem from './TagItem.vue'
 import SortDate from './SortDate.vue'
 import { ref } from "vue";
 export default {
-    components: {TagItem,SortDate},
+    components: {TagItem, SortDate},
     props: {
         tags: Array,
-        tagvalue: Array,
-        sort: String,
     },
-    setup(props, { emit }) {
+    setup(_, { emit }) {
         const selectedTags = ref([])
         const sortDate = ref(null)
         const sort = () =>{
