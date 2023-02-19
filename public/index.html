@@ -96,22 +96,7 @@
 
 <body>
   <div id="app" v-cloak class="contaienr">
-    <div class="sort">
-      <h3>日時でソートする</h3>
-      <div v-for="dir in dirs" key="dir.value">
-        <sort-date :label="dir.label" v-model="sortDate" :value="dir.value"></sort-date>
-      </div>
-      <h3>タグで絞り込む</h3>
-      <ul class="select-tags">
-        <li v-for="tag, n in tags">
-          <tag-item :tag="tag" v-model="selectedTags" :id="`tag-${n}`"></tag-item>
-        </li>
-      </ul>
-      <div class="sortBtns">
-        <button @click="sort">実行</button>
-        <button @click="clear">クリア</button>
-      </div>
-    </div>
+    <search :tags="tags" v-model:selectedTags="selectedTags" @search="sort" @clear="clear"></search>
     <p v-if="message">{{message}}</p>
     <ul class="articles">
       <li v-for="article in articles">

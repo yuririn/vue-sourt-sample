@@ -1,24 +1,25 @@
 <template>
-    <label :id="id"><input type="checkbox" v-model="narrowDown" :value="tag" />{{ tag }}</label>
+    <label><input type="checkbox" :value="tag" v-model="narrowDown" name="tag"/>{{ tag }}</label>
 </template>
 <script>
 import { computed } from "vue";
 export default {
-    props:{
-        modelValue: { type: [Array, []] },
-        tag: { type: [String, null] },
-        id:  { type: [String, null] }
+    props: {
+        tag: String,
+        tagvalue: Array
     },
-    emits:["update:modelValue"],
+    emits:["update:tagvalue"],
     setup(props, { emit }) {
         const narrowDown = computed({
-            get: () => props.modelValue,
+            get: () => {
+                return props.tagvalue
+            },
             set: (value) => {
-                emit('update:modelValue', value)
+                emit('update:tagvalue', value)
             },
         })
         return {
-            narrowDown,
+            narrowDown
         }
     }
 }

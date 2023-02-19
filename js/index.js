@@ -5,13 +5,12 @@ import {
   onMounted,
 } from 'vue';
 
-import SortDate from './components/SortDate.vue'
-import TagItem from './components/TagItem.vue'
+import Search from './components/Search.vue'
 
 const jsonUrl = './articles.json';
 
 const app = createApp({
-  components:{ SortDate, TagItem },
+  components:{ Search },
   setup() {
     const articles = ref(null);
     const paged = 10
@@ -22,16 +21,7 @@ const app = createApp({
     const selectedTags = ref([])
     const sortDate = ref(null)
     const message = ref(null)
-    const dirs = ref([
-    {
-      label:"新しい順",
-      value: 'desc',
-    },
-    {
-      label:"古い順",
-      value: 'asc',
-    }
-  ]);
+
     const sortArticle = async () => {
       let result;
       result = await fetch( jsonUrl );
@@ -98,8 +88,10 @@ const app = createApp({
 
       tags.value = tagList
     }
-    const sort = async () => {
+    const sort = async (args) => {
       currentPage.value = 1;
+      sortDate.value = args.date
+      selectedTags.value = args.tags
       await sortArticle();
       message.value = selectedTags.value.length !== 0 ? `${selectedTags.value.join(", ")} の記事が ${total.value} 件あります。` : null;
     }
@@ -140,7 +132,6 @@ const app = createApp({
       selectedTags,
       sortDate,
       message,
-      dirs,
       pagination,
       sortArticle,
       sort,

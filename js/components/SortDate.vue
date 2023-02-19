@@ -1,24 +1,35 @@
 <template>
-    <label><input type="radio" v-model="setSortDate" :value="value" />{{ label }}</label>
+    <label v-for="item in sortValue"><input type="radio" :value="item.value" name="date" v-model="setSortDate">{{ item.label }}</label>
 </template>
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 export default {
     props:{
-        modelValue: { type: [String, null] },
+        sort: { type: [String, null] },
         value: { type: [String, null] },
         label: { type: String }
     },
-    emits:["update:modelValue"],
+    emits:["update:sort"],
     setup(props, { emit }) {
         const setSortDate = computed({
-            get: () => props.modelValue,
+            get: () => props.sort,
             set: (value) => {
-                emit('update:modelValue', value)
+                emit('update:sort', value)
             },
         })
+        const sortValue = ref([
+        {
+            label:"新しい順",
+            value: 'desc',
+        },
+        {
+            label:"古い順",
+            value: 'asc',
+        }
+        ]);
         return {
             setSortDate,
+            sortValue
         }
     }
 }
