@@ -1,24 +1,26 @@
-
 import {
   createApp,
   ref,
   onMounted,
-} from "vue";
+} from 'vue';
 
-import InputItem from './components/InputItem.vue'
+import PostItem from './components/PostItem.vue'
 
 const app = createApp({
-  components: {InputItem },
+  components:{ PostItem },
   setup() {
-    const yourInfo = ref(null)
-    const showYourInfo = (info) => {
-      yourInfo.value = info
-    }
+    const posts = ref(
+      [
+        { date : '2023-1-12', title:'カワサンの滝にネッシーが現れた！', cate: 'スクープ'},
+        { date : '2023-2-14', title:'バレンタインデーに幻のチョコはいかが？', cate: 'グルメ'},
+        { date : '2023-2-18', title:'ゴンザレス一家に7つ子誕生！ママ奮闘記', cate: '地域'}
+      ]
+    );
+    const selectedPost = ref([])
     return {
-      yourInfo,
-      showYourInfo
+      posts,
+      selectedPost
     }
   }
 })
-
 app.mount("#app");

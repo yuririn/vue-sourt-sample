@@ -6,18 +6,101 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    ul li {
+      margin-bottom: 16px;
+      position: relative;
+      padding-left: 210px;
+      list-style: none;
+    }
+
+    ul,
+    ol {
+      padding-left: 0;
+      counter-reset: num;
+    }
+
+    ol li {
+      counter-increment: num;
+      list-style: none;
+      padding-left: 40px;
+      position: relative;
+
+    }
+
+    ol li::before {
+      font-weight: bold;
+      content: counter(num);
+      background: #000;
+      color: #fff;
+      position: absolute;
+      left: 0;
+      line-height: 20px;
+      text-align: center;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    input {
+      position: absolute;
+      left: 0px;
+      top: 0;
+    }
+
+    time {
+      position: absolute;
+      left: 20px;
+      top: 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    span {
+      position: absolute;
+      left: 120px;
+      top: 0;
+      width: 80px;
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+
+    button {
+      display: flex;
+      width: 300px;
+      background: #000;
+      text-align: center;
+      border: none;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
   <div id="app">
-    <input-item @info="showYourInfo"></input-item>
-    <p v-if="yourInfo === null">入力してください。</p>
-    <p v-else>
-      ご登録ありがとうございました。<br>
-      お名前: {{yourInfo.name}} 様<br>
-      性別: {{yourInfo.gender}}<br>
-      勤務先: {{yourInfo.company}}
-    </p>
+    <div id="app">
+
+      <ul>
+        <li v-for="post in posts">
+          <post-item :post="post" v-model="selectedPost">
+        </li>
+      </ul>
+      <p>好きな記事を選んでください。</p>
+      <button @click="selectedPost =[]" v-if="selectedPost.length > 0">Clear</button>
+
+      <ol v-if="selectedPost.length > 0">
+        <li v-for="n in selectedPost">{{n}}</li>
+      </ol>
+
+    </div>
   </div>
   <script src="./js/index.min.js" type="module" defer></script>
 </body>
