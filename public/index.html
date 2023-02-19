@@ -96,7 +96,7 @@
 
 <body>
   <div id="app" v-cloak class="contaienr">
-    <search :tags="tags" v-model:selectedTags="selectedTags" @search="sort" @clear="clear"></search>
+    <search :tags="tags" @search="sort" @clear="clear"></search>
     <p v-if="message">{{message}}</p>
     <ul class="articles">
       <li v-for="article in articles">
