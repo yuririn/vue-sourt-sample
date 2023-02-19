@@ -95,7 +95,6 @@
       </ul>
       <p>好きな記事を選んでください。</p>
       <button @click="selectedPost =[]" v-if="selectedPost.length > 0">Clear</button>
-
       <ol v-if="selectedPost.length > 0">
         <li v-for="n in selectedPost">{{n}}</li>
       </ol>
