@@ -3,11 +3,15 @@ import {
   createApp,
   ref,
   onMounted,
-} from "vue";
+} from 'vue';
 
-const jsonUrl = 'articles.json';
+import SortDate from './components/SortDate.vue'
+import TagItem from './components/TagItem.vue'
+
+const jsonUrl = './articles.json';
 
 const app = createApp({
+  components:{ SortDate, TagItem },
   setup() {
     const articles = ref(null);
     const paged = 10
@@ -18,12 +22,20 @@ const app = createApp({
     const selectedTags = ref([])
     const sortDate = ref(null)
     const message = ref(null)
-
+    const dirs = ref([
+    {
+      label:"新しい順",
+      value: 'desc',
+    },
+    {
+      label:"古い順",
+      value: 'asc',
+    }
+  ]);
     const sortArticle = async () => {
       let result;
       result = await fetch( jsonUrl );
       result = await result.json();
-
       if(selectedTags.value.length !== 0) {
         result = result.filter((i) => {
           const article = i.tags.map(k => {
@@ -42,6 +54,26 @@ const app = createApp({
           }
         });
       }
+      const dateFunc = (date)=> {
+        if(date.split('-').length > 1) {
+          return `${date.split('-')[0]}/${date.split('-')[1]}`
+        } else {
+          return date;
+        }
+      }
+      const groupBy = result.reduce((dateList, currentItem) => {
+        const sameDate = dateList.find(item => dateFunc(item.date) === dateFunc(currentItem.date));
+        if (sameDate) {
+            sameDate.count++;
+        } else {
+          //無いとき（新規に初期データを作成）
+            dateList = [...dateList, {date: dateFunc(currentItem.date), count: 1}]
+        }
+        return dateList;
+      }, []);
+      const test = groupBy.sort((a, b) => {
+        return (a.date < b.date ? 1 : -1);
+      });
       total.value = result.length;
 
       maxPage.value = Math.ceil(total.value / paged)
@@ -76,7 +108,6 @@ const app = createApp({
       selectedTags.value = []
       sortDate.value = null
       message.value = null
-
       await sortArticle();
     }
 
@@ -109,6 +140,7 @@ const app = createApp({
       selectedTags,
       sortDate,
       message,
+      dirs,
       pagination,
       sortArticle,
       sort,
